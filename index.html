@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Gerador de Labirinto</title>
+		<style type="text/css">
+			body {
+				font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+				margin: 0 1em 1em;
+			}
+			p label, .color-picker label {
+				width: 10em;
+				display: inline-block;
+			}
+			p.desc, #download {
+				font-size: smaller;
+			}
+			p.desc {
+				display: inline-block;
+			}
+			.hide {
+				display: none;
+			}
+			.controls {
+				padding-bottom: 1em;
+			}
+			canvas {
+				/* if canvas overflows body */
+				margin-right: 1em;
+			}
+			.color-picker {
+				margin: 16px 0;
+				display:flex;
+				position: relative;
+			}
+			.color-sample {
+				width: 1em;
+				border: 1px solid #000;
+				margin: 0 .5em;
+			}
+			.color-picker {
+				margin-left: 5px;
+			}
+			.palette {
+				margin: 1.5em 0 0 10em;
+				width: 270px;
+				background: #efefef;
+				border: 1px solid #bcbcbc;
+				border-radius: 1px;
+				display: none;
+				padding: 1px;
+				position: absolute;
+				z-index: 1000;
+			}
+			.palette div {
+				width: 18px;
+				height: 18px;
+				margin: 3px;
+				cursor:pointer;
+				display: inline-block;
+			}
+			.palette div:focus {
+				outline-width: 2px;
+				outline-style: dashed;
+			}
+			.screen-reader-text {
+				border: 0;
+				clip: rect(1px, 1px, 1px, 1px);
+				-webkit-clip-path: inset(50%);
+				clip-path: inset(50%);
+				height: 1px;
+				margin: -1px;
+				overflow: hidden;
+				padding: 0;
+				position: absolute;
+				width: 1px;
+				word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
+			}
+
+			noscript p {
+				border: 1px solid red;
+				padding: 1em;
+			}
+
+			#generate {
+				border-top: 1px solid #afafaf;
+				padding-top: 1em;
+			}
+
+			button {
+				font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+				padding:5px 1em;
+				margin-right: .5em;
+				font-size: .9em;
+				background: #00aa00;
+				color: #000;
+				border:0 none;
+				cursor:pointer;
+				-webkit-border-radius: 3px;
+				border-radius: 5px;
+			}
+			button:hover {
+				background:#0055ff;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Labirinto (gerador)</h1>
+		<h3>Gerador de labirinto utilizando <i>Recursive backtracker</i> </h3>
+		<hr>
+		<div class="controls">
+			<p>
+				<label for="wall-size">Largura (parede):</label>
+				<input id="wall-size" type="number" name="" value="15" min="1" max="50">
+			</p>
+
+			<p>
+				<label for="width">Colunas:</label>
+				<input id="width" type="number" name="width" value="20" min="3" max="200">
+			</p>
+
+			<p>
+				<label for="height">Linhas:</label>
+				<input id="height" type="number" name="height" value="20" min="3" max="200">
+			</p>
+			<p style='padding-bottom: 0; margin-bottom: 0;'>
+				<label for="remove_walls">Remover paredes:</label>
+				<input id="remove_walls" type="number" name="remove_walls" value="0" min="0" max="200">
+			</p>
+	
+			<div class="color-picker" data-default="#ffffff">
+				<label for="backgroundColor">Background Color</label> 
+				<input type="text" class="" id="backgroundColor" name="backgroundColor" value="#ffffff"><div class="color-sample" style="background-color:#ffffff"></div>
+			</div>
+			<div class="color-picker" data-default="#000000">
+				<label for="color">Maze Color</label> 
+				<input type="text" class="" id="color" name="color" value="#000000"><div class="color-sample" style="background-color:#000000"></div>
+			</div>
+			<div class="color-picker" data-default="#1aff1a">
+				<label for="solveColor">Solve Color</label> 
+				<input type="text" class="" id="solveColor" name="solveColor" value="#1aff1a" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"><div class="color-sample" style="background-color:#1aff1a"></div>
+			</div>
+			<div id="generate">
+				<button id="create-maze" onclick="initMaze();" class='hide'>Generate Maze</button>
+				<button id="solve" onclick="initSolve();" class='hide'>Solve Maze</button>
+			</div>
+		</div>
+		<noscript>
+			<p>No JavaScript Avaiable</p>
+		</noscript>
+		<script type="text/javascript">
+			const createMazeButton = document.getElementById('create-maze');
+			createMazeButton.classList.toggle("hide")
+		</script>
+		<canvas id="maze"></canvas>
+		<script type="text/javascript" src="src/globals.js"></script>
+		<script type="text/javascript" src="src/utils.js"></script>
+		<script type="text/javascript" src="src/entries.js"></script>
+		<script type="text/javascript" src="src/maze.js"></script>
+		<script type="text/javascript" src="src/solver.js"></script>
+		<script type="text/javascript" src="src/app.js"></script>
+		<script type="text/javascript" src="src/human-colours-en-gb.js"></script>
+		<script type="text/javascript" src="src/color-picker.js"></script>
+	</body>
+</html>
